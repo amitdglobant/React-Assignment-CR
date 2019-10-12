@@ -2,6 +2,7 @@ import React, { Component } from "react";
 
 import FormHeader from "../FormHeader/FormHeader";
 import "./MovieList.css";
+import Movie from '../Movie'
 
 class MovieList extends Component {
   render() {
@@ -9,20 +10,14 @@ class MovieList extends Component {
     // TODO:: If no data in movieList, show message - 'No movies found to display'
     const list =
       this.props.movieList &&
-      this.props.movieList.map(movie => {
-        return (
-          <div className="movie">
-            {/* TODO:: Convert this div into a link (website filled), 
-          on click, the link should open in new tab
-          */}
-            <div>{movie.name}</div>
-            <div>({movie.genre})</div>
-            <div>
-              <span className="fa fa-star" /> {movie.rating}/5
-            </div>
-          </div>
+      this.props.movieList.map(movie => 
+          <Movie
+            key={movie.name}
+            name={movie.name}
+            genre={movie.genre}
+            rating={movie.rating}
+          />
         );
-      });
     return (
       <div>
         <FormHeader formTitle="Movie list" />
@@ -34,7 +29,10 @@ class MovieList extends Component {
         >
           <i className="fa fa-plus" />
         </button>
-        {list}
+        {
+          list && list.length > 0 
+          ? list : <div className='empty-message'>No movies found to display</div>
+        }
       </div>
     );
   }

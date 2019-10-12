@@ -1,10 +1,5 @@
-.movie {
-  font-size: 18px;
-  padding: 10px 0px;
-}
-
 a {
-  color: black;
+  color: orange;
   font-size: 24px;
 }
 
@@ -23,4 +18,8 @@ a {
   -moz-box-shadow: 0px 5px 10px -2px rgba(0, 0, 0, 0.63);
   box-shadow: 0px 5px 10px -2px rgba(0, 0, 0, 0.63);
   cursor: pointer;
+}
+
+.empty-message {
+  color: gray
 }

@@ -1,0 +1,24 @@
+version: "2"
+services:
+  install:
+    build:
+      context: .
+    volumes:
+      - ./:/home/node/app
+    command: "npm i"
+  
+  start:
+    build:
+      context: .
+    volumes:
+      - ./:/home/node/app
+    ports:
+      - "3000:3000"
+    command: "npm start"
+
+  test:
+    build:
+      context: .
+    volumes:
+      - ./:/home/node/app
+    command: "npm test"
