@@ -4,6 +4,11 @@
   display: flex;
 }
 
+.submit-btn{
+  padding: 10px;
+  font-size: 16px;
+}
+
 form {
   width: 100%;
 }

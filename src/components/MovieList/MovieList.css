@@ -1,11 +1,24 @@
 .movie {
   font-size: 18px;
   padding: 10px 0px;
+  cursor: pointer;
+  color: black;
+}
+.movie:hover {
+  background-color: #ddd;
+  text-decoration: none;
+}
+fa.fa-star {
+  color: #ffc107;
 }
 
 a {
   color: black;
   font-size: 24px;
+}
+
+.no-data {
+  margin-top: 80px;
 }
 
 .add-movie-button {
