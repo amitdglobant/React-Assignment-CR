@@ -60,16 +60,19 @@ export default class MovieForm extends Component {
         movie.rating =  this.state.rating;
         movie.name =  this.state.website;
         let movieList = localStorage.getItem('movieList');
+        if(movieList === "null"){
+            movieList = [];
+        }
         movieList.push(movie);
         localStorage.setItem('movieList', movieList);
     }
 
     render() {
         const { movieName, genre, rating, website, valid } = this.state;
-        console.log(movieName, genre, rating, website)
+        console.log('list:', localStorage.getItem('movieList'))
 
         return (
-            <form onSubmit={()=>this.submitForm()}>
+            <form>
                 <div className="wrapper">
                     <label className="label" htmlFor="MovieName">
                         Movie Name*
@@ -123,6 +126,7 @@ export default class MovieForm extends Component {
                         value="Submit"
                         tabIndex="5"
                         disabled={valid ? false : true}
+                        onClick={()=>this.submitForm()}
                     />
                 </div>
             </form>

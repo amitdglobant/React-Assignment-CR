@@ -6,6 +6,8 @@ import MovieList from "./components/MovieList/MovieList";
 import AddMovieForm from "./components/AddMovieForm/AddMovieForm";
 import { browserHistory } from 'react-router';
 class App extends React.Component {
+
+  
   render() {
 
     let movieList = localStorage.getItem('movieList')

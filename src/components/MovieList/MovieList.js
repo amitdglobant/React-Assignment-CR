@@ -7,12 +7,12 @@ class MovieList extends Component {
   render() {
     // TODO:: The list shown should be sorted by ratings, in descending order
     // TODO:: If no data in movieList, show message - 'No movies found to display'
-    console.log('Movie List:', this.props.movieList)
+      let movieList = localStorage.getItem('')
+      console.log('Movie List:', movieList)
     
-    
-     const list = !this.props.movieList ? <div>No movies found to display</div>:
-      this.props.movieList && 
-      this.props.movieList.map(movie => {
+     const list = !movieList ? <div>No movies found to display</div>:
+      movieList && 
+      movieList.map(movie => {
         return (
           <div className="movie">
             {/* TODO:: Convert this div into a link (website filled), 
@@ -33,7 +33,6 @@ class MovieList extends Component {
         <button
           className="add-movie-button"
           onClick={() => {
-            debugger;
             this.props.history.push("/add-movie");
           }}
         >
