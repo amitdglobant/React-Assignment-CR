@@ -19,7 +19,7 @@ class AddMovieForm extends React.Component {
     const enteredName = e.target.value;
     const isValidName = /^[A-Za-z]+$/.test(enteredName);
 
-    if (isValidName) {
+    if (isValidName || enteredName === "") {
       this.setState({ name: enteredName });
     }
   };
@@ -51,6 +51,9 @@ class AddMovieForm extends React.Component {
     }
 
     this.props.addMovie(this.movieActionCreator(this.state));
+
+    alert("Movie added successfully");
+    this.setState({ name: "", genre: "", rating: -1, website: "" });
   };
 
   movieActionCreator = movie => {
@@ -95,7 +98,7 @@ class AddMovieForm extends React.Component {
               <label className="label" id="Genre" htmlFor="Genre">
                 Genre*
               </label>
-              <select name="Genre" onChange={this.onChangeGenre}>
+              <select name="Genre" onChange={this.onChangeGenre} value={genre}>
                 <option value="Science Fiction">Science Fiction</option>
                 <option value="Drama">Drama</option>
                 <option value="Action">Action</option>
