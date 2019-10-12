@@ -1,30 +1,53 @@
 // vendor
 import React from "react";
+import { withRouter } from 'react-router-dom'
 // component
 import FormHeader from "../FormHeader/FormHeader";
 // styles
 import "./AddMovieForm.css";
 
 class AddMovieForm extends React.Component {
+  constructor(props) {
+    super(props)
+    // this.state = {
+    //   movie_name: ''
+    // }
+
+    this.name = React.createRef();
+  }
+  changeName = (e) => {
+    this.setState({movie_name: e.target.value});
+  }
+  handleSubmittion = (e) => {
+    e.preventDefault()
+    //const values = this.state.movie_name
+    //console.log(this.name.current.value)
+
+    const details = {
+      name: this.name.current.value
+    }
+    this.props.onSubmit(details)
+  }
   render() {
+    const { history } = this.props
     return (
       <div className="row">
         <FormHeader formTitle={"Add your favorite movie"} />
         <button
           className="add-movie-button"
           onClick={() => {
-
+            history.push('/')
           }}
         >
           <i className="fa fa-long-arrow-left" aria-hidden="true" />
         </button>
         <div className="col-12 form-body">
-          <form action="#">
+          <form action="#" onSubmit={this.handleSubmittion}>
             <div className="wrapper">
               <label className="label" htmlFor="MovieName">
                 Movie Name*
               </label>
-              <input id="MovieName" name="MovieName" type="text" tabIndex="1" />
+              <input id="MovieName" name="MovieName" type="text" tabIndex="1" ref={this.name} />
             </div>
             <div className="wrapper">
               <label className="label" id="Genre" htmlFor="Genre">
@@ -72,4 +95,4 @@ class AddMovieForm extends React.Component {
   }
 }
 
-export default AddMovieForm;
+export default withRouter(AddMovieForm);

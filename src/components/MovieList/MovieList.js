@@ -1,14 +1,18 @@
 import React, { Component } from "react";
+import { withRouter } from 'react-router-dom'
+
 
 import FormHeader from "../FormHeader/FormHeader";
 import "./MovieList.css";
 
 class MovieList extends Component {
+  
   render() {
     // TODO:: The list shown should be sorted by ratings, in descending order
     // TODO:: If no data in movieList, show message - 'No movies found to display'
+    console.log(Object.keys(this.props.movieList))
     const list =
-      this.props.movieList &&
+    this.props.movieList.length > 0 ?
       this.props.movieList.map(movie => {
         return (
           <div className="movie">
@@ -22,7 +26,7 @@ class MovieList extends Component {
             </div>
           </div>
         );
-      });
+      }) : ( <p>No movies found to display</p> );
     return (
       <div>
         <FormHeader formTitle="Movie list" />
@@ -40,4 +44,4 @@ class MovieList extends Component {
   }
 }
 
-export default MovieList;
+export default withRouter(MovieList);

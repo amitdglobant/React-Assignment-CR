@@ -12,6 +12,7 @@ describe("MovieList component", () => {
   it("should render correctly when no data received in props", () => {
     const output = shallow(<MovieList />);
     // TODO:: add assertion for this test case here
+    expect(output.find("p").text()).toBe("No movies found to display");
 
   });
   it("should render correctly when valid data received in props", () => {

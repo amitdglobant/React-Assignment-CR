@@ -10,6 +10,8 @@ configure({ adapter: new Adapter() });
 describe("AddMovieForm component", () => {
   it("should render FormHeader with correct formTitle", () => {
     // test cases here
+    const output = shallow(<AddMovieForm />);
+    expect(output.find("FormHeader").text()).toBe("Add your favorite movie");
   });
   it("should call change handler on change event of Movie Name input control", () => {
     // test cases here
