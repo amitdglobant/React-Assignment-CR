@@ -1,7 +1,7 @@
 .wrapper {
-  width: "100%";
+  /* width: "100%";
   padding: 5px;
-  display: flex;
+  display: flex; */
 }
 
 form {
@@ -37,4 +37,7 @@ select {
 
 .fa-arrow-left {
   margin-right: 10px;
+}
+.error {
+  color: #ff0000;
 }

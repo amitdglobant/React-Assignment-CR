@@ -17,4 +17,8 @@ describe("FormHeader component", () => {
     const output = shallow(<FormHeader />);
     // TODO:: add assertion for this test case here
   });
+  it("There should be text-center class present in header", () => {
+    const output = shallow(<FormHeader />);
+    expect(output.find('.text-center')).to.have.lengthOf(1);
+  })
 });
