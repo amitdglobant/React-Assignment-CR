@@ -1,26 +1,34 @@
 .wrapper {
-  width: "100%";
   padding: 5px;
   display: flex;
+  justify-content: space-evenly;
+}
+
+.submit-btn input {
+  margin-top: 40px;
+  flex-basis: 20%;
 }
 
 form {
   width: 100%;
 }
 
-.label {
-  float: left;
-  padding-right: 50px;
+.label, .radio-container {
   min-width: 100px;
   font-weight: bold;
   font-size: 18px;
   color: black;
+  flex-basis: 35%;
+  text-align: right;
+  display: flex;
+  justify-content: flex-end;
 }
 
 input,
 select {
   min-width: 200px;
   font-size: 18px;
+  flex-basis: 35%;
 }
 
 .form-body {
@@ -37,4 +45,12 @@ select {
 
 .fa-arrow-left {
   margin-right: 10px;
+}
+
+.radio-container {
+  min-width: 200px;
+}
+
+.radio-container input {
+  min-width: unset;
 }

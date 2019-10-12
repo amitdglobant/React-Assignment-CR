@@ -13,7 +13,7 @@ class AddMovieForm extends React.Component {
         <button
           className="add-movie-button"
           onClick={() => {
-
+            this.props.history.push("/")
           }}
         >
           <i className="fa fa-long-arrow-left" aria-hidden="true" />
@@ -44,11 +44,13 @@ class AddMovieForm extends React.Component {
               <label className="label" htmlFor="rating">
                 Rating*
               </label>
-              <input type="radio" name="rating" value="1" label="1" />1
-              <input type="radio" name="rating" value="2" />2
-              <input type="radio" name="rating" value="3" />3
-              <input type="radio" name="rating" value="4" />4
-              <input type="radio" name="rating" value="5" />5
+              <div className='radio-container'>
+                <input type="radio" name="rating" value="1" label="1"/>1
+                <input type="radio" name="rating" value="2" />2
+                <input type="radio" name="rating" value="3" />3
+                <input type="radio" name="rating" value="4" />4
+                <input type="radio" name="rating" value="5" />5
+              </div>
             </div>
             <div className="wrapper">
               <label className="label" htmlFor="Website">
