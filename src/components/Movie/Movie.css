@@ -6,3 +6,11 @@
 .fa.fa-star {
     color: orange
 }
+
+.movie-name-link {
+    text-decoration: underline;
+}
+
+.movie-name-link:hover {
+    cursor: pointer;
+}

@@ -16,6 +16,7 @@ class MovieList extends Component {
             name={movie.name}
             genre={movie.genre}
             rating={movie.rating}
+            website={movie.website}
           />
         );
     return (

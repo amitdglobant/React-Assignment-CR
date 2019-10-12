@@ -7,15 +7,19 @@ export default function Movie(props){
     const {
         name,
         genre,
-        rating
+        rating,
+        website
     } = props
+
+    const nameClickHandler = () => {
+      if(website){
+        window.open(website, '_blank')
+      }
+    }
 
     return(
         <div className="movie">
-            {/* TODO:: Convert this div into a link (website filled), 
-          on click, the link should open in new tab
-          */}
-            <div>{name}</div>
+            <div className={website ? 'movie-name-link': ''} onClick={nameClickHandler}>{name}</div>
             <div>({genre})</div>
             <div>
               <span className="fa fa-star" /> {rating}/5
