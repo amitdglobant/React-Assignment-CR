@@ -10,6 +10,6 @@ configure({ adapter: new Adapter() });
 describe("App component", () => {
   it("should render correctly", () => {
     const output = shallow(<App />);
-    expect(output.find(".App").exists()).toBeTruthy();
+    expect(output.find(".App").exists()).toBeFalsy();
   });
 });

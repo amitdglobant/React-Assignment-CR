@@ -7,8 +7,11 @@ class MovieList extends Component {
   render() {
     // TODO:: The list shown should be sorted by ratings, in descending order
     // TODO:: If no data in movieList, show message - 'No movies found to display'
-    const list =
-      this.props.movieList &&
+    console.log('Movie List:', this.props.movieList)
+    
+    
+     const list = !this.props.movieList ? <div>No movies found to display</div>:
+      this.props.movieList && 
       this.props.movieList.map(movie => {
         return (
           <div className="movie">
@@ -23,12 +26,14 @@ class MovieList extends Component {
           </div>
         );
       });
+
     return (
       <div>
         <FormHeader formTitle="Movie list" />
         <button
           className="add-movie-button"
           onClick={() => {
+            debugger;
             this.props.history.push("/add-movie");
           }}
         >
