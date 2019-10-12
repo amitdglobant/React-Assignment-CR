@@ -11,6 +11,7 @@ function AddMovieForm(props) {
   const [genre, setGenre] = useState('')
   const [rating, setRating] = useState('')
   const [website, setWebsite] = useState('')
+  const [isValid, setIsValid] = useState(false)
 
   function nameChangeHandler(e) {
     setName(e.target.value)
@@ -34,7 +35,7 @@ function AddMovieForm(props) {
       <button
         className="add-movie-button"
         onClick={() => {
-          this.props.history.push("/")
+          props.history.push("/")
         }}
       >
         <i className="fa fa-long-arrow-left" aria-hidden="true" />
@@ -111,6 +112,7 @@ function AddMovieForm(props) {
               type="submit"
               value="Submit"
               tabIndex="5"
+              disabled={!isValid}
             />
           </div>
         </form>

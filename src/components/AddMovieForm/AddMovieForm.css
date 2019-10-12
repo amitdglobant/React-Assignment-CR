@@ -54,3 +54,8 @@ select {
 .radio-container input {
   min-width: unset;
 }
+
+input[disabled]
+{
+  opacity: 0.3;
+}
