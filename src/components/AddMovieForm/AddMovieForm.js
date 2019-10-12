@@ -10,7 +10,7 @@ import "./AddMovieForm.css";
 class AddMovieForm extends React.Component {
   state = {
     name: "",
-    genre: "",
+    genre: "Science Fiction",
     rating: -1,
     website: ""
   };

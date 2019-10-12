@@ -12,11 +12,10 @@ class MovieList extends Component {
   render() {
     // TODO:: The list shown should be sorted by ratings, in descending order
     // TODO:: If no data in movieList, show message - 'No movies found to display'
-    const temp = this.getSortedMovieList(this.props.movieList);
-    console.log("fds: ", temp);
+    const sortedList = this.getSortedMovieList(this.props.movieList);
     const list =
-      this.props.movieList &&
-      this.props.movieList.map((movie, index) => {
+      sortedList &&
+      sortedList.map((movie, index) => {
         return (
           <div className="movie" key={index}>
             {/* TODO:: Convert this div into a link (website filled), 
@@ -27,6 +26,13 @@ class MovieList extends Component {
             <div>
               <span className="fa fa-star" /> {movie.rating}/5
             </div>
+            {movie.website === "" && (
+              <div>
+                <a href="../html-link.htm" target="_blank">
+                  Open page in new window
+                </a>
+              </div>
+            )}
           </div>
         );
       });
