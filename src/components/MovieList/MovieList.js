@@ -2,8 +2,19 @@ import React, { Component } from "react";
 
 import FormHeader from "../FormHeader/FormHeader";
 import "./MovieList.css";
-
+const data = React.createContext();
 class MovieList extends Component {
+  state={    
+    movieList:[]
+  };
+  onSubmission=(getList)=>{
+    var newList = [...getList];
+    this.setState({movieList:newList})
+  }
+
+  componentDidMount(){
+    console.log(this.props,this.state);
+  }
   render() {
     // TODO:: The list shown should be sorted by ratings, in descending order
     // TODO:: If no data in movieList, show message - 'No movies found to display'
@@ -29,14 +40,22 @@ class MovieList extends Component {
         <button
           className="add-movie-button"
           onClick={() => {
-            this.props.history.push("/add-movie");
+            // this.props.history.push("/add-movie");
+            this.props.history.push({
+              pathname: "/add-movie",
+              state: this.state
+            });
+
           }}
         >
           <i className="fa fa-plus" />
         </button>
-        {list}
+        {/* Changes */}
+        {/* {list} */}
+        {list ? list : "No movies found to display"}
       </div>
     );
+    
   }
 }
 

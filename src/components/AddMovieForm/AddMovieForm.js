@@ -1,19 +1,23 @@
 // vendor
-import React from "react";
+import React,{useState} from "react";
 // component
 import FormHeader from "../FormHeader/FormHeader";
 // styles
 import "./AddMovieForm.css";
 
-class AddMovieForm extends React.Component {
-  render() {
+const AddMovieForm = (props)=> {
+  let [movieName,setMovieName] = useState('');
+  let [genre,setGenre] = useState('');
+  let [rating,setrating] = useState('');
+  let [webSite,setWebSite] = useState('');
+  console.log(props);
     return (
       <div className="row">
         <FormHeader formTitle={"Add your favorite movie"} />
         <button
           className="add-movie-button"
           onClick={() => {
-
+            props.history.goBack();
           }}
         >
           <i className="fa fa-long-arrow-left" aria-hidden="true" />
@@ -23,8 +27,11 @@ class AddMovieForm extends React.Component {
             <div className="wrapper">
               <label className="label" htmlFor="MovieName">
                 Movie Name*
-              </label>
-              <input id="MovieName" name="MovieName" type="text" tabIndex="1" />
+              </label><br/>
+              <input id="MovieName" name="MovieName" type="text" tabIndex="1" 
+                value = {movieName}
+                onChange = {e=>setMovieName(e.target.value)}
+              />
             </div>
             <div className="wrapper">
               <label className="label" id="Genre" htmlFor="Genre">
@@ -37,7 +44,7 @@ class AddMovieForm extends React.Component {
                 <option value="Horror">Horror</option>
                 <option value="Comedy">Comedy</option>
                 <option value="Documentary">Documentary</option>
-                <option value="Others">Others</option>
+                <option value="Others">Others</option>                
               </select>
             </div>
             <div className="wrapper">
@@ -54,22 +61,24 @@ class AddMovieForm extends React.Component {
               <label className="label" htmlFor="Website">
                 Website
               </label>
-              <input id="Website" name="Website" />
-            </div>
-            <div className="wrapper submit-btn">
-              <input
-                id="Submit"
-                name="Submit"
-                type="submit"
-                value="Submit"
-                tabIndex="5"
+              <input id="Website" name="Website" 
+              value = {webSite}
+              onChange = {e=>setWebSite(e.target.value)}
               />
+            </div>
+            <div className="wrapper submit-btn">              
+              <button classname="Disabled" onClick={(e)=>{
+                e.preventDefault();
+                console.error(props.location.state);
+                props.history.goBack();
+                
+              }}>Submit</button>
             </div>
           </form>
         </div>
       </div>
     );
-  }
+  
 }
 
 export default AddMovieForm;
