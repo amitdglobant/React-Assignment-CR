@@ -6,17 +6,26 @@ import FormHeader from "../FormHeader/FormHeader";
 import "./AddMovieForm.css";
 
 class AddMovieForm extends React.Component {
+  constructor(props) {
+    super(props);
+    this.onAdd = this.onAdd.bind(this);
+  }
+  onAdd(){
+   
+    this.props.history.push('/');
+  }
+  onSubmit(){
+    this.props.history.push('/');
+  }
   render() {
     return (
       <div className="row">
         <FormHeader formTitle={"Add your favorite movie"} />
         <button
-          className="add-movie-button"
-          onClick={() => {
-
-          }}
-        >
-          <i className="fa fa-long-arrow-left" aria-hidden="true" />
+          className="add-movie-button">
+          <i className="fa fa-long-arrow-left" aria-hidden="true" onClick={this.onAdd}
+           />
+           
         </button>
         <div className="col-12 form-body">
           <form action="#">
@@ -63,7 +72,7 @@ class AddMovieForm extends React.Component {
                 type="submit"
                 value="Submit"
                 tabIndex="5"
-              />
+              onClick={this.onSubmit}/>
             </div>
           </form>
         </div>
