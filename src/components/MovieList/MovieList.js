@@ -10,8 +10,8 @@ class MovieList extends Component {
     // TODO:: The list shown should be sorted by ratings, in descending order
     // TODO:: If no data in movieList, show message - 'No movies found to display'
     const list =
-      this.props.movieList &&
-      this.props.movieList.map(movie => {
+      this.props.movies &&
+      this.props.movies.map(movie => {
         return (
           <div className="movie">
             {/* TODO:: Convert this div into a link (website filled), 

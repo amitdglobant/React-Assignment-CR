@@ -20,7 +20,7 @@ class AddMovieForm extends React.Component {
   handleSubmit(event) {
     event.preventDefault();
     let movie = {
-      movieName: event.target.MovieName.value,
+      name: event.target.MovieName.value,
       genre: event.target.Genre.value,
       rating: event.target.rating.value,
       website: event.target.Website.value || null
