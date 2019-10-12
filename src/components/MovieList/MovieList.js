@@ -6,11 +6,11 @@ import Movie from '../Movie'
 
 class MovieList extends Component {
   render() {
-    // TODO:: The list shown should be sorted by ratings, in descending order
-    // TODO:: If no data in movieList, show message - 'No movies found to display'
     const list =
       this.props.movieList &&
-      this.props.movieList.map(movie => 
+      this.props.movieList.sort((a, b) => {
+        return b.rating - a.rating // descending order
+      }).map(movie => 
           <Movie
             key={movie.name}
             name={movie.name}
