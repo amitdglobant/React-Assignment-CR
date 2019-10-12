@@ -4,8 +4,74 @@ import React from "react";
 import FormHeader from "../FormHeader/FormHeader";
 // styles
 import "./AddMovieForm.css";
+import { withRouter } from 'react-router-dom';
 
 class AddMovieForm extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+        movieName: "",
+        genreName: "Science Fiction",
+        rating: "",
+        website: "",
+        maptodata : false
+    };
+  }
+
+  ratingSelection = (e) => {
+    this.setState({ rating : e.target.value})
+  }
+
+  genreSelection = (e) => {
+    this.setState({ genreName : e.target.value })
+  }
+
+  submitBtnClick = (e) => {
+    e.preventDefault();
+    let movieName_temp = document.getElementById('MovieName').value;
+    let website_temp = document.getElementById('Website').value;
+    let reg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
+    let radios = document.getElementsByName("rating");
+    let formValid = false;
+
+    let i = 0;
+    while (!formValid && i < radios.length) {
+        if (radios[i].checked) formValid = true;
+        i++;        
+    }
+
+    if (!formValid) alert("Must check some option for rating");
+
+    if (movieName_temp.search(/[^a-zA-Z]+/) === -1) {     
+      this.setState({ movieName : movieName_temp})
+    } else {
+      alert(" invalid movie name");
+      return false;
+    }
+    
+    if (reg.test(website_temp) === false) {
+      alert("invalid website");
+      return false;
+    } else {
+      this.setState({ website : website_temp})
+    }
+    this.setState({ maptodata : true}, ()=>{
+      console.log(this.state.movieName)
+      debugger
+      if(this.state.movieName != '' && this.state.website != '' && this.state.rating != ''){
+        this.props.history.push('/');
+      }
+      alert("movie added")
+    })
+   
+   // this.props.history('/')
+  }
+
+  // componentDidUpdate(prevProps, prevState){
+  //   if(prevState.movieName != this.state.movieName && prevState.website != this.state.website && prevState.rating != this.state.rating){
+  //     // go to moivelist page
+  //   }
+  // }
   render() {
     return (
       <div className="row">
@@ -13,7 +79,7 @@ class AddMovieForm extends React.Component {
         <button
           className="add-movie-button"
           onClick={() => {
-
+            this.props.history.push('/');
           }}
         >
           <i className="fa fa-long-arrow-left" aria-hidden="true" />
@@ -24,13 +90,13 @@ class AddMovieForm extends React.Component {
               <label className="label" htmlFor="MovieName">
                 Movie Name*
               </label>
-              <input id="MovieName" name="MovieName" type="text" tabIndex="1" />
+              <input id="MovieName" name="MovieName" type="text" tabIndex="1" required/>
             </div>
             <div className="wrapper">
               <label className="label" id="Genre" htmlFor="Genre">
                 Genre*
               </label>
-              <select name="Genre">
+              <select name="Genre" onChange={(e) => {this.genreSelection(e)}}>
                 <option value="Science Fiction">Science Fiction</option>
                 <option value="Drama">Drama</option>
                 <option value="Action">Action</option>
@@ -44,11 +110,11 @@ class AddMovieForm extends React.Component {
               <label className="label" htmlFor="rating">
                 Rating*
               </label>
-              <input type="radio" name="rating" value="1" label="1" />1
-              <input type="radio" name="rating" value="2" />2
-              <input type="radio" name="rating" value="3" />3
-              <input type="radio" name="rating" value="4" />4
-              <input type="radio" name="rating" value="5" />5
+              <input type="radio" name="rating" value="1" label="1" onChange={(e) => {this.ratingSelection(e)}} />1
+              <input type="radio" name="rating" value="2" onChange={(e) => {this.ratingSelection(e)}} />2
+              <input type="radio" name="rating" value="3" onChange={(e) => {this.ratingSelection(e)}} />3
+              <input type="radio" name="rating" value="4" onChange={(e) => {this.ratingSelection(e)}} />4
+              <input type="radio" name="rating" value="5" onChange={(e) => {this.ratingSelection(e)}} />5
             </div>
             <div className="wrapper">
               <label className="label" htmlFor="Website">
@@ -63,6 +129,7 @@ class AddMovieForm extends React.Component {
                 type="submit"
                 value="Submit"
                 tabIndex="5"
+                onClick={(e) => {this.submitBtnClick(e)}}
               />
             </div>
           </form>
