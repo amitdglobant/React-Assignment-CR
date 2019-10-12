@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
 
 import FormHeader from "../FormHeader/FormHeader";
 import "./MovieList.css";
@@ -9,9 +10,9 @@ class MovieList extends Component {
     // TODO:: If no data in movieList, show message - 'No movies found to display'
     const list =
       this.props.movieList &&
-      this.props.movieList.map(movie => {
+      this.props.movieList.map((movie, index) => {
         return (
-          <div className="movie">
+          <div className="movie" key={index}>
             {/* TODO:: Convert this div into a link (website filled), 
           on click, the link should open in new tab
           */}
@@ -40,4 +41,10 @@ class MovieList extends Component {
   }
 }
 
-export default MovieList;
+const mapStateToProps = state => {
+  return {
+    movieList: state.listOfMovies
+  };
+};
+
+export default connect(mapStateToProps)(MovieList);

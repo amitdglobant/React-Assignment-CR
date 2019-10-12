@@ -1,19 +1,77 @@
 // vendor
 import React from "react";
+import { connect } from "react-redux";
 // component
 import FormHeader from "../FormHeader/FormHeader";
+import { ADD_MOVIE } from "../../constants";
 // styles
 import "./AddMovieForm.css";
 
 class AddMovieForm extends React.Component {
+  state = {
+    name: "",
+    genre: "",
+    rating: -1,
+    website: ""
+  };
+
+  onChangeMovieName = e => {
+    const enteredName = e.target.value;
+    const isValidName = /^[A-Za-z]+$/.test(enteredName);
+
+    if (isValidName) {
+      this.setState({ name: enteredName });
+    }
+  };
+
+  onChangeGenre = e => {
+    this.setState({ genre: e.target.value });
+  };
+
+  onChangeRating = e => {
+    this.setState({ rating: e.target.value });
+  };
+
+  onChangeWebsite = e => {
+    this.setState({ website: e.target.value });
+  };
+
+  onClickSubmit = e => {
+    e.preventDefault();
+
+    const { website } = this.state;
+
+    if (website !== "") {
+      const urlRegex = /[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=])/;
+      const isValidUrl = urlRegex.test(website);
+      if (!isValidUrl) {
+        alert("Please enter valid url.");
+        return;
+      }
+    }
+
+    this.props.addMovie(this.movieActionCreator(this.state));
+  };
+
+  movieActionCreator = movie => {
+    const movieAction = {
+      type: ADD_MOVIE,
+      data: movie
+    };
+
+    return movieAction;
+  };
+
   render() {
+    const { name, genre, rating } = this.state;
+
     return (
       <div className="row">
         <FormHeader formTitle={"Add your favorite movie"} />
         <button
           className="add-movie-button"
           onClick={() => {
-
+            this.props.history.push("/");
           }}
         >
           <i className="fa fa-long-arrow-left" aria-hidden="true" />
@@ -24,13 +82,20 @@ class AddMovieForm extends React.Component {
               <label className="label" htmlFor="MovieName">
                 Movie Name*
               </label>
-              <input id="MovieName" name="MovieName" type="text" tabIndex="1" />
+              <input
+                id="MovieName"
+                name="MovieName"
+                type="text"
+                tabIndex="1"
+                onChange={this.onChangeMovieName}
+                value={name}
+              />
             </div>
             <div className="wrapper">
               <label className="label" id="Genre" htmlFor="Genre">
                 Genre*
               </label>
-              <select name="Genre">
+              <select name="Genre" onChange={this.onChangeGenre}>
                 <option value="Science Fiction">Science Fiction</option>
                 <option value="Drama">Drama</option>
                 <option value="Action">Action</option>
@@ -44,17 +109,52 @@ class AddMovieForm extends React.Component {
               <label className="label" htmlFor="rating">
                 Rating*
               </label>
-              <input type="radio" name="rating" value="1" label="1" />1
-              <input type="radio" name="rating" value="2" />2
-              <input type="radio" name="rating" value="3" />3
-              <input type="radio" name="rating" value="4" />4
-              <input type="radio" name="rating" value="5" />5
+              <input
+                type="radio"
+                name="rating"
+                value="1"
+                label="1"
+                onChange={this.onChangeRating}
+              />
+              1
+              <input
+                type="radio"
+                name="rating"
+                value="2"
+                onChange={this.onChangeRating}
+              />
+              2
+              <input
+                type="radio"
+                name="rating"
+                value="3"
+                onChange={this.onChangeRating}
+              />
+              3
+              <input
+                type="radio"
+                name="rating"
+                value="4"
+                onChange={this.onChangeRating}
+              />
+              4
+              <input
+                type="radio"
+                name="rating"
+                value="5"
+                onChange={this.onChangeRating}
+              />
+              5
             </div>
             <div className="wrapper">
               <label className="label" htmlFor="Website">
                 Website
               </label>
-              <input id="Website" name="Website" />
+              <input
+                id="Website"
+                name="Website"
+                onChange={this.onChangeWebsite}
+              />
             </div>
             <div className="wrapper submit-btn">
               <input
@@ -63,6 +163,8 @@ class AddMovieForm extends React.Component {
                 type="submit"
                 value="Submit"
                 tabIndex="5"
+                disabled={name === "" || genre === "" || rating === -1}
+                onClick={this.onClickSubmit}
               />
             </div>
           </form>
@@ -72,4 +174,13 @@ class AddMovieForm extends React.Component {
   }
 }
 
-export default AddMovieForm;
+const mapDispatchToProps = dispatch => {
+  return {
+    addMovie: movieAction => dispatch(movieAction)
+  };
+};
+
+export default connect(
+  null,
+  mapDispatchToProps
+)(AddMovieForm);
