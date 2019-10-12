@@ -6,41 +6,35 @@ import FormHeader from "../FormHeader/FormHeader";
 import "./AddMovieForm.css";
 
 class AddMovieForm extends React.Component {
-state = {
-  movie : {
-    name : '',
-    genre : '',
-    ratings : '',
-    website : ''
-  },
-  list : []
-}
-
-
-
-
-  submitHandle = (e) => {
-    e.preventDefault();
-    console.log(this.props, "location")
-
-    this.props.history.push("/");
-    
-
+  constructor(props) {
+    super(props);
+    this.state = { 
+      MovieName: '',
+      Genure:'',
+      Rating:'',
+      Website:'',
+  };
+   }
+  onAddMovie= () => {
+    console.log("onAddMovie",this.state);
+    this.props.onAddMovie(this.state);
   }
-
-  changeHandle = e => {
-    this.setState({
-      [e.target.id]: e.target.value
-    });
-  };
-
-  handleSelect = e => {
-    this.setState({
-      [e.target.id]: e.target.value
-    });
-  };
-
-
+  onMovieChange=(event)=>{
+    console.log("onMovieChange",event.target.value);
+    this.setState({MovieName: event.target.value});
+  }
+  websiteChange=(event)=>{
+    console.log("websiteChange",event.target.value);
+    this.setState({Website: event.target.value});
+  }
+  setRating=(event)=>{
+    console.log("setRating",event.target.value);
+    this.setState({Rating: event.target.value});
+  }
+  handleGenreChange=(event)=>{
+    console.log("handleGenreChange",event.target.value);
+    this.setState({Genure: event.target.value});
+  }
   render() {
     return (
       <div className="row">
@@ -48,25 +42,24 @@ state = {
         <button
           className="add-movie-button"
           onClick={() => {
-            this.props.history.push("/");
+
           }}
         >
-
           <i className="fa fa-long-arrow-left" aria-hidden="true" />
         </button>
-        <div className="col-12 form-body ui center container segment">
-          <form action="#" onSubmit={this.submitHandle}>
+        <div className="col-12 form-body">
+          <form action="#" onSubmit={this.onAddMovie}>
             <div className="wrapper">
               <label className="label" htmlFor="MovieName">
                 Movie Name*
               </label>
-              <input required id="MovieName" name="MovieName" type="text" tabIndex="1" onChange={this.changeHandle} />
+              <input id="MovieName" name="MovieName" type="text" tabIndex="1" value={this.state.MovieName} onChange={this.onMovieChange}  />
             </div>
             <div className="wrapper">
               <label className="label" id="Genre" htmlFor="Genre">
                 Genre*
               </label>
-              <select required name="Genre">
+              <select name="Genre" onChange={this.handleGenreChange} >
                 <option value="Science Fiction">Science Fiction</option>
                 <option value="Drama">Drama</option>
                 <option value="Action">Action</option>
@@ -76,22 +69,21 @@ state = {
                 <option value="Others">Others</option>
               </select>
             </div>
-            <div className="wrapper form-check form-check-inline">
+            <div className="wrapper" onChange={this.setRating}>
               <label className="label" htmlFor="rating">
                 Rating*
-              </label><div >
-                <input required type="radio" name="rating" value="1" label="1" />1
+              </label>
+              <input type="radio" name="rating" value="1" label="1" />1
               <input type="radio" name="rating" value="2" />2
               <input type="radio" name="rating" value="3" />3
               <input type="radio" name="rating" value="4" />4
               <input type="radio" name="rating" value="5" />5
-              </div>
             </div>
-            <div className="wrapper">
+            <div className="wrapper" >
               <label className="label" htmlFor="Website">
                 Website
               </label>
-              <input type="url" id="Website" name="Website" onChange={this.changeHandle} />
+              <input id="Website" name="Website"  value={this.state.Website} onChange={this.websiteChange}  />
             </div>
             <div className="wrapper submit-btn">
               <input
@@ -100,7 +92,6 @@ state = {
                 type="submit"
                 value="Submit"
                 tabIndex="5"
-
               />
             </div>
           </form>
