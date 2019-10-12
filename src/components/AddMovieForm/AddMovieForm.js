@@ -4,22 +4,46 @@ import React from "react";
 import FormHeader from "../FormHeader/FormHeader";
 // styles
 import "./AddMovieForm.css";
+import { addMovie } from "../../Actions";
+import { connect } from "react-redux";
 
 class AddMovieForm extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      movies: []
+    };
+
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  handleSubmit(event) {
+    event.preventDefault();
+    let movie = {
+      movieName: event.target.MovieName.value,
+      genre: event.target.Genre.value,
+      rating: event.target.rating.value,
+      website: event.target.Website.value || null
+    };
+    document.getElementById("MovieForm").reset();
+    this.props.dispatch(addMovie(movie));
+  }
+
   render() {
+    console.log(this.props.movies);
     return (
       <div className="row">
         <FormHeader formTitle={"Add your favorite movie"} />
         <button
           className="add-movie-button"
           onClick={() => {
-
+            this.props.history.push("/");
           }}
         >
           <i className="fa fa-long-arrow-left" aria-hidden="true" />
         </button>
         <div className="col-12 form-body">
-          <form action="#">
+          <form action="#" id="MovieForm" onSubmit={this.handleSubmit}>
             <div className="wrapper">
               <label className="label" htmlFor="MovieName">
                 Movie Name*
@@ -72,4 +96,13 @@ class AddMovieForm extends React.Component {
   }
 }
 
-export default AddMovieForm;
+function mapStateToProps(state) {
+  return {
+    movies: state
+  };
+}
+
+export default connect(
+  mapStateToProps,
+  null
+)(AddMovieForm);
