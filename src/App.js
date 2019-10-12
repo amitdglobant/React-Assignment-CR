@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import "./App.css";
 import MovieList from "./components/MovieList/MovieList";
 import AddMovieForm from "./components/AddMovieForm/AddMovieForm";
+import { connect } from 'react-redux'
 
 class App extends React.Component {
   render() {
@@ -14,7 +15,7 @@ class App extends React.Component {
             <Route exact path="/add-movie" component={AddMovieForm} />
           </Switch>
           <Switch>
-            <Route exact path="/" component={MovieList} />
+            <Route exact path="/" movieList={this.props.movieList} component={MovieList} />
           </Switch>
         </div>
       </Router>
@@ -22,4 +23,13 @@ class App extends React.Component {
   }
 }
 
-export default App;
+const mapStateToProps = state => ({
+  movieList: state.todos
+})
+
+
+//export default App;
+export default connect(
+  mapStateToProps,
+  null
+)(App)

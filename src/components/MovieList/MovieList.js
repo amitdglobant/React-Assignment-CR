@@ -7,6 +7,7 @@ class MovieList extends Component {
   render() {
     // TODO:: The list shown should be sorted by ratings, in descending order
     // TODO:: If no data in movieList, show message - 'No movies found to display'
+    console.log(this.props)
     const list =
       this.props.movieList &&
       this.props.movieList.map(movie => {
@@ -41,3 +42,4 @@ class MovieList extends Component {
 }
 
 export default MovieList;
+

@@ -1,10 +1,12 @@
 // vendor
 import React from "react";
+import { connect } from 'react-redux'
 // component
 import FormHeader from "../FormHeader/FormHeader";
 // styles
 import "./AddMovieForm.css";
 import { withRouter } from 'react-router-dom';
+import { addTodo } from '../../actions'
 
 class AddMovieForm extends React.Component {
   constructor(props) {
@@ -57,11 +59,13 @@ class AddMovieForm extends React.Component {
     }
     this.setState({ maptodata : true}, ()=>{
       console.log(this.state.movieName)
-      debugger
+      alert(" movie added is "+this.state.movieName+" "+this.state.genreName+" "+this.state.rating+" "+this.state.website)
+       
+      this.props.addTodo(this.state.movieName,this.state.genreName,this.state.rating,this.state.website)
+       
       if(this.state.movieName != '' && this.state.website != '' && this.state.rating != ''){
         this.props.history.push('/');
       }
-      alert("movie added")
     })
    
    // this.props.history('/')
@@ -139,4 +143,13 @@ class AddMovieForm extends React.Component {
   }
 }
 
-export default AddMovieForm;
+//export default AddMovieForm;
+
+const mapDispatchToProps = dispatch => ({
+  addTodo: (movieName,genre,rating,site) => dispatch(addTodo(movieName,genre,rating,site))
+})
+
+export default connect(
+  null,
+  mapDispatchToProps
+)(AddMovieForm)
