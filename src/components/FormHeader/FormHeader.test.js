@@ -10,8 +10,7 @@ configure({ adapter: new Adapter() });
 describe("FormHeader component", () => {
   it("should set h2 correctly when valid formTitle received in props", () => {
     const output = shallow(<FormHeader formTitle="test formTitle" />);
-    // TODO:: fix this failing test
-    expect(output.find("h2").text()).toBe("test ");
+    expect(output.find("h2").text()).toBe("test formTitle");
   });
   it("should set h2 as empty string when invalid formTitle received in props", () => {
     const output = shallow(<FormHeader />);
