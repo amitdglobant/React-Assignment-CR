@@ -7,6 +7,9 @@ a {
   color: black;
   font-size: 24px;
 }
+.fa-star{
+  color: yellow;
+}
 
 .add-movie-button {
   position: absolute;

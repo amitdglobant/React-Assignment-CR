@@ -4,8 +4,9 @@ import { shallow, configure } from "enzyme";
 import Adapter from "enzyme-adapter-react-16";
 // component
 import AddMovieForm from "./AddMovieForm";
+import FormHeader from "../FormHeader/FormHeader";
 
-configure({ adapter: new Adapter() });
+configure({ adapter: new Adapter() }); 
 
 describe("AddMovieForm component", () => {
   it("should render FormHeader with correct formTitle", () => {
