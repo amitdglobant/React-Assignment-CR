@@ -10,7 +10,7 @@ class MovieList extends Component {
       let movieList = localStorage.getItem('')
       console.log('Movie List:', movieList)
     
-     const list = !movieList ? <div>No movies found to display</div>:
+     const list = !movieList ? <h2>No movies found to display</h2>:
       movieList && 
       movieList.map(movie => {
         return (
