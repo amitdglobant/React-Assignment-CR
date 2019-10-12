@@ -6,6 +6,40 @@ import FormHeader from "../FormHeader/FormHeader";
 import "./AddMovieForm.css";
 
 class AddMovieForm extends React.Component {
+  constructor(){
+    super();
+    this.state = {movieList: [],
+                  currentList:[]
+                };   
+  }
+    
+
+      handleMovieNameChange = (e)=>{
+        const li = {...this.state.currentList,name:e.target.value};
+
+      this.setState({currentList: li });
+    
+      }
+      handleGenreChange = (e)=>{    
+        const li = {...this.state.currentList,genre:e.target.value};
+        this.setState({currentList: li });
+     
+      }
+      handleWebsiteChange = (e)=>{     
+        const li = {...this.state.currentList,Web:e.target.value};
+        this.setState({currentList: li });
+      }
+      
+      handleSubmit = (event) =>{      
+        const newn = [...this.state.movieList, ...this.state.currentList];
+        this.setState({movieList:newn});       
+        alert(JSON.stringify(this.state.movieList));    
+        event.preventDefault();
+     }
+
+
+
+
   render() {
     return (
       <div className="row">
@@ -13,24 +47,24 @@ class AddMovieForm extends React.Component {
         <button
           className="add-movie-button"
           onClick={() => {
-
+            this.props.history.push("/");
           }}
         >
           <i className="fa fa-long-arrow-left" aria-hidden="true" />
         </button>
         <div className="col-12 form-body">
-          <form action="#">
+          <form>
             <div className="wrapper">
               <label className="label" htmlFor="MovieName">
                 Movie Name*
               </label>
-              <input id="MovieName" name="MovieName" type="text" tabIndex="1" />
+              <input id="MovieName" name="MovieName" type="text" tabIndex="1"  onChange={this.handleMovieNameChange}/>
             </div>
             <div className="wrapper">
               <label className="label" id="Genre" htmlFor="Genre">
                 Genre*
               </label>
-              <select name="Genre">
+              <select name="Genre" onChange={this.handleGenreChange}>
                 <option value="Science Fiction">Science Fiction</option>
                 <option value="Drama">Drama</option>
                 <option value="Action">Action</option>
@@ -54,16 +88,15 @@ class AddMovieForm extends React.Component {
               <label className="label" htmlFor="Website">
                 Website
               </label>
-              <input id="Website" name="Website" />
+              <input id="Website" name="Website" onChange={this.handleWebsiteChange}/>
             </div>
+           
             <div className="wrapper submit-btn">
-              <input
+              <button
                 id="Submit"
-                name="Submit"
-                type="submit"
-                value="Submit"
-                tabIndex="5"
-              />
+                name="Submit"           
+                tabIndex="5"  onClick={this.handleSubmit}         
+              >sumbit</button>
             </div>
           </form>
         </div>

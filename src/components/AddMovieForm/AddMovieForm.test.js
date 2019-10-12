@@ -12,10 +12,13 @@ describe("AddMovieForm component", () => {
     // test cases here
   });
   it("should call change handler on change event of Movie Name input control", () => {
-    // test cases here
+    
+      expect('Christoph').toMatch('/^[A-Z]+$/i');
+    
+   
   });
   it("should call change handler on change event of Website input control", () => {
-    // test cases here
+    
   });
   it("should select correct value on Genre dropdown control option selection", () => {
     // test cases here
