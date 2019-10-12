@@ -26,10 +26,10 @@ class MovieList extends Component {
             <div>
               <span className="fa fa-star" /> {movie.rating}/5
             </div>
-            {movie.website === "" && (
+            {movie.website !== "" && (
               <div>
-                <a href="../html-link.htm" target="_blank">
-                  Open page in new window
+                <a href={movie.website} target="_blank">
+                  Website
                 </a>
               </div>
             )}
