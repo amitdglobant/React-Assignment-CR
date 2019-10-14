@@ -29,7 +29,7 @@ describe("AddMovieForm component", () => {
         Website: "https://abc.com"
       }
     });
-    expect(output.state().MovieName).toBe("https://abc.com");
+    expect(output.state().Website).toBe("https://abc.com");
   });
   it("should select correct value on Genre dropdown control option selection", () => {
     // test cases here

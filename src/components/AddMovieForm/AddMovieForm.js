@@ -4,7 +4,8 @@ import React from "react";
 import FormHeader from "../FormHeader/FormHeader";
 // styles
 import "./AddMovieForm.css";
-import {Link} from 'react-router-dom';
+import{connect} from 'react-redux';
+import {addMovie}  from '../../Actions/actions';
 
 class AddMovieForm extends React.Component {
   constructor(props){
@@ -17,16 +18,34 @@ class AddMovieForm extends React.Component {
     }
   }
   handleChange = (e) =>{
-    e.preventDefault();
-    console.log(e.target.id);
-    console.log(e.target.value);
     this.setState({
       [e.target.id]:e.target.value
-    },console.log('gtr',this.state.rating))
+    },()=> {
+      if(!(this.state.MovieName===""||this.state.genre===""||this.state.rating==="")){
+        this.setState({
+          errorData: false
+        })
+      }
+    });
   }
   submitForm = (e) =>{
       e.preventDefault();
-      console.log('onSubmit',this.state);
+      if(this.state.MovieName===""||this.state.genre===""||this.state.rating===""){
+        this.setState({
+          errorData: true
+        })
+        return;
+      }
+      this.props.onAddMovie({
+        MovieName:this.state.MovieName,
+        genre:this.state.genre,
+        rating:this.state.rating,
+        Website:this.state.Website
+      });
+      this.setState({
+        errorData: false
+      })
+      this.props.history.push("/movie-list");
   }
   render() {
     return (
@@ -53,6 +72,7 @@ class AddMovieForm extends React.Component {
                 Genre*
               </label>
               <select name="Genre" onChange={this.handleChange} id="genre">
+                <option value="">Select Genre</option>
                 <option value="Science Fiction">Science Fiction</option>
                 <option value="Drama">Drama</option>
                 <option value="Action">Action</option>
@@ -66,11 +86,11 @@ class AddMovieForm extends React.Component {
               <label className="label" htmlFor="rating">
                 Rating*
               </label>
-              <input type="radio" name="rating" value="1" label="1" id="rating" onChange={this.handleChange}/>1
-              <input type="radio" name="rating" value="2" id="rating" onChange={this.handleChange}/ >2
-              <input type="radio" name="rating" value="3" id="rating" onChange={this.handleChange}/>3
-              <input type="radio" name="rating" value="4" id="rating" onChange={this.handleChange}/>4
-              <input type="radio" name="rating" value="5" id="rating" onChange={this.handleChange}/>5
+              <input type="radio" name="rating" id="rating" value="1" onChange={this.handleChange}/>1
+              <input type="radio" name="rating" id="rating" value="2" onChange={this.handleChange}/>2
+              <input type="radio" name="rating" id="rating" value="3" onChange={this.handleChange}/>3
+              <input type="radio" name="rating" id="rating" value="4" onChange={this.handleChange}/>4
+              <input type="radio" name="rating" id="rating" value="5" onChange={this.handleChange}/>5
             </div>
             <div className="wrapper">
               <label className="label" htmlFor="Website">
@@ -79,15 +99,20 @@ class AddMovieForm extends React.Component {
               <input id="Website" name="Website"  onChange={this.handleChange}/>
             </div>
             <div className="wrapper submit-btn">
-              <Link to={{pathname:'/movie-list',state:{movie:this.state}}}>
+              {/* <Link to={{pathname:'/movie-list',state:{movie:this.state}}}> */}
+              {/* <a href="/movie-list"></a> */}
               <input
                 id="Submit"
                 name="Submit"
                 type="submit"
                 value="Submit"
                 tabIndex="5"
-              /></Link>
+                onClick={this.submitForm}
+              />
             </div>
+              {
+                this.state.errorData?<p className="error-msg">The required value cannot be empty</p>:null
+              }
           </form>
         </div>
       </div>
@@ -95,4 +120,13 @@ class AddMovieForm extends React.Component {
   }
 }
 
-export default AddMovieForm;
+
+
+const mapDispatchToProps=(dispatch)=>{
+  console.log('fourth',dispatch);
+  return{
+    onAddMovie:(data)=>dispatch(addMovie(data))
+  }
+}
+
+export default connect(null,mapDispatchToProps)(AddMovieForm);

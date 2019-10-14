@@ -1,13 +1,13 @@
 import React, { Component } from "react";
 
 import FormHeader from "../FormHeader/FormHeader";
+import{connect} from 'react-redux';
 import "./MovieList.css";
 
 class MovieList extends Component {
   constructor(props){
     super(props);
-    this.data = this.props.location.state
-    console.log('movie-list',this.data.movie);
+    this.data = this.props.location.state;
   }
   render() {
     return (
@@ -21,16 +21,29 @@ class MovieList extends Component {
         >
           <i className="fa fa-plus" />
         </button>
-          {this.data?<div className="movie">
-            <div>{this.data.movie.MovieName}</div>
-            <div>({this.data.movie.genre})</div>
-            <div>
-              <span className="fa fa-star" /> {this.data.rating}/5
-            </div>
-          </div>:""}
+        {this.props.movieArray.length?
+          <div className="movie-list">
+            {this.props.movieArray.map((item,i)=>{
+              return(
+                <div>
+                  <p>{item.MovieName}</p>
+                  <p>({item.genre})</p>
+                  <p><span className="fa fa-star"></span>{item.rating}/5</p>
+                  <p>{item.Website}</p>
+                </div>
+              )
+            })}
+            </div> :
+          <div className="no-movie-list">No Movie List Found</div>
+        }
       </div>
     );
   }
 }
 
-export default MovieList;
+const mapStateToProps=(state) => ({
+    movieArray : state.movieArray
+});
+
+
+export default connect(mapStateToProps)(MovieList);
