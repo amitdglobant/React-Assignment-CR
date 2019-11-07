@@ -4,44 +4,33 @@ import React from "react";
 import FormHeader from "../FormHeader/FormHeader";
 // styles
 import "./AddMovieForm.css";
+import { addMovie } from "../../Actions";
+import { connect } from "react-redux";
 
 class AddMovieForm extends React.Component {
-state = {
-  movie : {
-    name : '',
-    genre : '',
-    ratings : '',
-    website : ''
-  },
-  list : []
-}
+  constructor(props) {
+    super(props);
+    this.state = {
+      movies: []
+    };
 
-
-
-
-  submitHandle = (e) => {
-    e.preventDefault();
-    console.log(this.props, "location")
-
-    this.props.history.push("/");
-    
-
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  changeHandle = e => {
-    this.setState({
-      [e.target.id]: e.target.value
-    });
-  };
-
-  handleSelect = e => {
-    this.setState({
-      [e.target.id]: e.target.value
-    });
-  };
-
+  handleSubmit(event) {
+    event.preventDefault();
+    let movie = {
+      name: event.target.MovieName.value,
+      genre: event.target.Genre.value,
+      rating: event.target.rating.value,
+      website: event.target.Website.value || null
+    };
+    document.getElementById("MovieForm").reset();
+    this.props.dispatch(addMovie(movie));
+  }
 
   render() {
+    console.log(this.props.movies);
     return (
       <div className="row">
         <FormHeader formTitle={"Add your favorite movie"} />
@@ -51,22 +40,21 @@ state = {
             this.props.history.push("/");
           }}
         >
-
           <i className="fa fa-long-arrow-left" aria-hidden="true" />
         </button>
-        <div className="col-12 form-body ui center container segment">
-          <form action="#" onSubmit={this.submitHandle}>
+        <div className="col-12 form-body">
+          <form action="#" id="MovieForm" onSubmit={this.handleSubmit}>
             <div className="wrapper">
               <label className="label" htmlFor="MovieName">
                 Movie Name*
               </label>
-              <input required id="MovieName" name="MovieName" type="text" tabIndex="1" onChange={this.changeHandle} />
+              <input id="MovieName" name="MovieName" type="text" tabIndex="1" />
             </div>
             <div className="wrapper">
               <label className="label" id="Genre" htmlFor="Genre">
                 Genre*
               </label>
-              <select required name="Genre">
+              <select name="Genre">
                 <option value="Science Fiction">Science Fiction</option>
                 <option value="Drama">Drama</option>
                 <option value="Action">Action</option>
@@ -76,22 +64,21 @@ state = {
                 <option value="Others">Others</option>
               </select>
             </div>
-            <div className="wrapper form-check form-check-inline">
+            <div className="wrapper">
               <label className="label" htmlFor="rating">
                 Rating*
-              </label><div >
-                <input required type="radio" name="rating" value="1" label="1" />1
+              </label>
+              <input type="radio" name="rating" value="1" label="1" />1
               <input type="radio" name="rating" value="2" />2
               <input type="radio" name="rating" value="3" />3
               <input type="radio" name="rating" value="4" />4
               <input type="radio" name="rating" value="5" />5
-              </div>
             </div>
             <div className="wrapper">
               <label className="label" htmlFor="Website">
                 Website
               </label>
-              <input type="url" id="Website" name="Website" onChange={this.changeHandle} />
+              <input id="Website" name="Website" />
             </div>
             <div className="wrapper submit-btn">
               <input
@@ -100,7 +87,6 @@ state = {
                 type="submit"
                 value="Submit"
                 tabIndex="5"
-
               />
             </div>
           </form>
@@ -110,4 +96,13 @@ state = {
   }
 }
 
-export default AddMovieForm;
+function mapStateToProps(state) {
+  return {
+    movies: state
+  };
+}
+
+export default connect(
+  mapStateToProps,
+  null
+)(AddMovieForm);
